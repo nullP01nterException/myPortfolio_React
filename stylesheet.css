@@ -1,0 +1,267 @@
+footer{
+  height:120px;
+  clear:both;
+}
+
+.aboutContent{
+  margin: auto;
+
+  border: 3px solid #dddddd;
+  width: 60%;
+  height: 600px;
+  background: #eeeeee;
+  border-radius: 2%;
+  text-align: center;
+}
+
+.active{
+  box-shadow: 0px 0px 10px #777777;
+}
+
+.artContent{
+  margin: auto;
+  text-align: center;
+}
+
+.nav{
+	background-color: #fff;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px -2px 8px #777777;
+  z-index: 100;
+}
+
+.nav a{
+	display: inline-block;
+  width: 25%;
+  padding: .75rem 0;
+  margin: auto;
+  text-decoration: none;
+  color: #333;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 200%;
+  font-weight:bold;
+}
+
+.nav a:hover{
+	color:#dddddd;
+}
+
+.nav ul{
+	padding: 0;
+  margin-top: 100px;
+  margin-bottom: 0;
+}
+.nav ul li{
+	display:inline;
+	padding: 0;
+}
+
+.programmingContent{
+  margin:auto;
+}
+
+.spacing{
+  width:100%;
+  clear:both;
+  height: 50px;
+}
+
+.topMargin{
+  z-index: 99;
+  margin-top:220px;
+}
+
+/*******************git program css**********************/
+.addCompareInstances{
+  margin:auto;
+  text-align: center;
+}
+
+.box{
+  margin:auto;
+  margin-top: 90px;
+  border: 3px solid #165b28;
+  width: 40%;
+  height: 300px;
+  background: #2fc456;
+  border-radius: 2%;
+}
+
+.boxWinner{
+  margin:auto;
+  margin-top: 20px;
+  border: 3px solid #165b28;
+  width: 633.19px;
+  height: 250px;
+  background: #2fc456;
+  border-radius: 2%;
+  text-align: center;
+}
+
+.compareButton{
+  width:150px;
+  height:50px;
+  border: 2px solid #34ef65;
+  background: #34ef65;
+  text-align: center;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 27px;
+}
+
+button[disabled], html input[disabled] {
+    cursor: default;
+    border: 2px solid #aaaaaa;
+    background: #aaaaaa;
+}
+
+.compareDiv{
+ float:left;
+ width:50%;
+}
+
+.displayCompareInstances{
+  position: relative;  
+  left: -8px;
+  top: 1px;
+  padding-left:25px;
+  padding-right: 25px;
+  padding-top:12px;
+  padding-bottom:12px;
+  border: 3px solid #bbbbbb;
+  background: #ffffff;
+  text-align: center;
+  color: #000000;
+  border-radius: 3px;
+  font-size: 20px;
+}
+
+.infoBox{
+  text-align: center;
+}
+
+.nameDiv{
+  margin: auto;
+  margin-top:-15%;
+  text-align:center;
+}
+
+.nums{
+  font-size:25px;
+}
+
+.numLabels{
+  margin: auto;
+  text-decoration: underline;
+  font-size:30px;
+}
+
+.search{
+  border: 3px solid #34ef65;
+  padding: 5px;
+  border-radius: 5px;
+  height: 50px;
+  width: 40%;
+  outline: none;
+  color: #a0a0a0;
+  font-size: 20px;
+}
+
+.searchButton {
+  position: relative;  
+  left: -8px;
+  top: 1px;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #34ef65;
+  background: #34ef65;
+  text-align: center;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.textWinner{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 50px;
+  padding-top: 5%;
+}
+
+.userText{
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.winnerDiv{
+  margin: auto;
+  text-align: center;
+  clear:both;
+}
+
+.winnerInfo{
+  font-size:80%;
+}
+
+.winnerName{
+  width:65%;
+  float:left;
+  font-size: 40px;
+  margin-top:32px;
+  margin-bottom: 32px;
+}
+
+.winnerText{
+  font-size:35px;
+}
+
+.wrap{
+  margin: auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#forkDiv{
+  float:left;
+  width:21.5%;
+  padding-top:20px;
+}
+
+#starDiv{
+  float:left;
+  width:21.5%;
+  padding-top:20px;
+}
+
+#userImg{
+  margin-left: -10%;
+  height: 35%;
+  margin-top: -50px;
+  border-radius: 50%;
+  border: 4px solid #165b28;
+  display: none;
+}
+
+#userName{
+  font-size: 250%;
+}
+
+#watcherDiv{
+  float:left;
+  width:21.5%;
+  padding-top:20px;
+}
+
+#winnerImg{
+  height: 50%;
+  width:20%;
+  float:left;
+  margin-left:2%;
+  margin-top:2%;
+  border-radius: 50%;
+  border: 4px solid #165b28;
+}
