@@ -4,12 +4,12 @@ class Programming extends React.Component{
 
 		this.state = {
 			canCompare: false,
-			compareInstances: 2,
+			getShow: false,
 
 			scoreArr: [],
 			tempScore: 0,
 
-			responseArr: {},
+			responseArr: [],
 			tempArr: [],
 
 			starArr: [],
@@ -40,51 +40,71 @@ class Programming extends React.Component{
 		this.setWatcherArray = this.setWatcherArray.bind(this);
 	}
 
-	shouldComponentUpdate(){
-		//replaces entry of key
-		this.state.responseArr[this.state.objectKey] = this.state.tempArr;
-		this.state.starArr[this.state.objectKey] = this.state.tempStar;
-		this.state.scoreArr[this.state.objectKey] = this.state.tempScore;
-		this.state.forkArr[this.state.objectKey] = this.state.tempFork;
-		this.state.watcherArr[this.state.objectKey] = this.state.tempWatcher;
-
-		this.forceUpdate();
-		return true;
-	}
-
 	setObjectKey(num){
 		this.setState({
 			objectKey: num
 		});
+		//console.log(this.state.objectKey);
 	}
 
 	setStarArray(num){
 		this.setState({
 			tempStar: num
+		},()=>{
+			var temp = Array.from(this.state.starArr);
+			temp[this.state.objectKey] = this.state.tempStar;
+			this.setState({
+				starArr: temp
+			});
 		});
 	}
 
 	setForkArray(num){
 		this.setState({
 			tempFork: num
+		},()=>{
+			var temp = Array.from(this.state.forkArr);
+			temp[this.state.objectKey] = this.state.tempFork;
+			this.setState({
+				forkArr: temp
+			});
 		});
 	}
 
 	setWatcherArray(num){
 		this.setState({
 			tempWatcher: num
+		},()=>{
+			var temp = Array.from(this.state.watcherArr);
+			temp[this.state.objectKey] = this.state.tempWatcher;
+			this.setState({
+				watcherArr: temp
+			});
 		});
 	}
 
 	setResponseArray(response){
 		this.setState({
-			tempArr: response
+			tempArr: response,
+			getShow: true
+		},()=>{
+			var temp = Array.from(this.state.responseArr);
+			temp[this.state.objectKey] = this.state.tempArr;
+			this.setState({
+				responseArr: temp
+			});
 		});
 	}
 
 	setScoreArray(score){
 		this.setState({
 			tempScore: score
+		},()=>{
+			var temp = Array.from(this.state.scoreArr);
+			temp[this.state.objectKey] = this.state.tempScore;
+			this.setState({
+				scoreArr: temp
+			});
 		});
 		//set enableCompare here b/c state not updated after setState in setResponseArray
 		this.enableCompare();
@@ -128,21 +148,6 @@ class Programming extends React.Component{
 
 	//add another gitCompareInstance
 	addCompareInstance(){
-		this.hideResultDiv();
-
-		this.setState({
-			keyChangeReady: false
-		});
-
-		if(this.state.compareInstances < 10){
-			this.setState({
-				compareInstances: this.state.compareInstances + 1,
-				keyArr: this.state.keyArr.concat(this.state.compareInstances)
-			}, () =>{
-				this.checkButtons();
-				this.enableCompare();
-			});
-		}
 	}
 
 	//delete a gitCompareInstance
@@ -175,30 +180,37 @@ class Programming extends React.Component{
 	}
 
 	render(){
-		var compareInstanceArr = [];
+		if(this.state.responseArr.length > 0){
+			var gitDisplayArr = [];
 
-		for(var i = 0; i < this.state.compareInstances; i++){
-			compareInstanceArr.push(<GitCompare
+			for(var i = 0; i < this.state.responseArr.length; i++){
+				gitDisplayArr.push(<GitDisplay
 									key={i}
 									number={i}
-									setGitScore={this.setScoreArray}
-									setResponse={this.setResponseArray}
-									setStar={this.setStarArray}
-									setFork={this.setForkArray}
-									setWatcher={this.setWatcherArray}
-									setObjectKey={this.setObjectKey} />);
+									getResponse={this.state.responseArr[i]}
+									getScore={this.state.scoreArr[i]}
+									getShow={this.state.getShow}
+									getForks={this.state.forkArr}
+									getStars={this.state.starArr}
+									getWatchers={this.state.watcherArr} />);
+			}
 		}
 
 		return(
 			<div className="programmingContent topMargin">
-				<AddCompareComponent
-					addCompareInstance={this.addCompareInstance}
-					deleteCompareInstance={this.deleteCompareInstance}
-					getCompareInstances={this.state.compareInstances}>
-						{compareInstanceArr}
-				</AddCompareComponent>
+				<GitSearch
+					setResponseArray={this.setResponseArray}
+					setShow={this.setShowDiv}
+					setSuccess={this.setIsSuccess}
+					setUserText={this.setUserText}
+					setScore={this.setScoreArray}
+					setStarCount={this.setStarArray}
+					setWatcherCount={this.setWatcherArray}
+					setForkCount={this.setForkArray}
+					setObjectKey={this.setObjectKey}
+					
+					getObjectKey={this.state.objectKey} />
 
-				<div className="spacing"></div>
 				<div>
 					<GitCompareButton
 						canCompare={this.state.canCompare}
@@ -208,6 +220,10 @@ class Programming extends React.Component{
 						getForkArr={this.state.forkArr}
 						getWatcherArr={this.state.forkArr}
 						getKeyArr={this.state.keyArr} />
+				</div>
+
+				<div>
+					{gitDisplayArr}
 				</div>
 			</div>
 		);

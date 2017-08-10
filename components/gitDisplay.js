@@ -19,22 +19,23 @@ class GitDisplay extends React.Component{
 					style={{display: this.props.getShow ? 'block' : 'none'}}></img>
 				<div className="nameDiv">
 					{showName}
+					Score: {this.props.getScore}
 				</div>
 
-				<div className="infoBox" style={{display: this.props.getShow ? 'block' : 'none'}}>
-					<div id="repoDiv">
-						<div type="text" className="userText numLabels">Repos</div>
-						<div id="repoNum" className="userText nums">{response.public_repos}</div>
+				<div className="infoBox">
+					<div id="forkDiv">
+						<div type="text" className="userText numLabels">Forks</div>
+						<div id="repoNum" className="userText nums">{this.props.getForks[this.props.number]}</div>
 					</div>
 
-					<div id="followerDiv">
-						<div type="text" className="userText numLabels">Followers</div>
-						<div id="followersNum" className="userText nums">{response.followers}</div>
+					<div id="starDiv">
+						<div type="text" className="userText numLabels">Stars</div>
+						<div id="followersNum" className="userText nums">{this.props.getStars[this.props.number]}</div>
 					</div>
 
-					<div id="orgDiv">
-						<div type="text" className="userText numLabels">Following</div>
-						<div id="orgNum" className="userText nums">{response.following}</div>
+					<div id="watcherDiv">
+						<div type="text" className="userText numLabels">Watchers</div>
+						<div id="orgNum" className="userText nums">{this.props.getWatchers[this.props.number]}</div>
 					</div>
 				</div>
 			</div>

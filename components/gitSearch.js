@@ -10,7 +10,8 @@ class GitSearch extends React.Component{
 			score: 0,
 			forkCount: 0,
 			starCount: 0,
-			watcherCount: 0
+			watcherCount: 0,
+			key: 0
 		};
 
 		this.onBlur = this.onBlur.bind(this);
@@ -18,6 +19,16 @@ class GitSearch extends React.Component{
 		this.handleUsername = this.handleUsername.bind(this);
 		this.getUsername = this.getUsername.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
+		this.accepted = this.accepted.bind(this);
+		this.rejected = this.rejected.bind(this);
+	}
+
+	accepted(){
+		$(".search").effect("highlight");
+	}
+
+	rejected(){
+		$(".wrap").effect("shake",{times:3}, 10);
 	}
 
 	getScore(initScore){
@@ -38,17 +49,26 @@ class GitSearch extends React.Component{
             			watcher+=XMLResponse[i].watchers_count;
             		}
 
+            		//set local response and score -> pass to parent -> increment key -> pass to parent
             		this.setState({
             			score: this.state.score + initScore + tempScore,
             			scoreResponse: XMLResponse,
             			starCount: star,
             			forkCount: fork,
-            			watcherCount: watcher
+            			watcherCount: watcher,
+            			key: this.props.getObjectKey
+            		}, () =>{
+            			this.props.setScore(this.state.score);
+            			this.props.setStarCount(this.state.starCount);
+            			this.props.setForkCount(this.state.forkCount);
+            			this.props.setWatcherCount(this.state.watcherCount);
+
+            			this.setState({
+            				key: this.state.key+1
+            			},()=>{
+            				this.props.setObjectKey(this.state.key);
+            			});
             		});
-            		this.props.setScore(this.state.score);
-            		this.props.setStarCount(this.state.starCount);
-            		this.props.setForkCount(this.state.forkCount);
-            		this.props.setWatcherCount(this.state.watcherCount);
 				}else{
 					this.setState({
             			score: 0
@@ -99,6 +119,7 @@ class GitSearch extends React.Component{
 						isSuccess: true,
 						showDiv: true
 					});
+					{this.accepted()}
 					this.getScore(XMLResponse.public_repos + XMLResponse.followers);
 				}else{
 					this.setState({
@@ -108,10 +129,7 @@ class GitSearch extends React.Component{
 						isSuccess: false
 					});
 				}
-				this.props.setResponse(this.state.response);
-				this.props.setSuccess(this.state.isSuccess);
-				this.props.setShow(this.state.showDiv);
-				
+				this.props.setResponseArray(this.state.response);
         	}else{
         		//var XMLResponse = JSON.parse(xmlHttp.responseText);
         		this.setState({
@@ -120,21 +138,19 @@ class GitSearch extends React.Component{
 					showDiv: false,
 					isSuccess: false
 				});
-				this.props.setResponse(this.state.response);
-				this.props.setSuccess(this.state.isSuccess);
-				this.props.setShow(this.state.showDiv);
+				this.props.setResponseArray(this.state.response);
         	}
     	}.bind(this);
     	if(cookieUser == ""){
     		xmlHttp.open("GET", "https://api.github.com/users/"+this.state.user, true); // true for asynchronous
-    		this.props.setUserText(this.state.inputText);
+    		//this.props.setUserText(this.state.inputText);
     	}else{
     		xmlHttp.open("GET", "https://api.github.com/users/"+cookieUser, true);
     		console.log(cookieUser);
     	}
     	xmlHttp.send(null);
 
-    	this.props.setShow(this.state.showDiv);
+    	//this.props.setShow(this.state.showDiv);
 	}
 
 	onFocus(){
