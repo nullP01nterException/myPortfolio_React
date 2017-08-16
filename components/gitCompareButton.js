@@ -8,100 +8,91 @@ class GitCompareButton extends React.Component{
 			responseArr: this.props.getResponseArr,
 			starArr: this.props.getStarArr,
 			forkArr: this.props.getForkArr,
-			watcherArr: this.props.getWatcherArr,
-			keyArr: this.props.getKeyArr,
-
-			showWinner: false
+			watcherArr: this.props.getWatcherArr
 		};
 		this.updateValues = this.updateValues.bind(this);
 		this.compareScore = this.compareScore.bind(this);
-		this.showResultDiv = this.showResultDiv.bind(this);
-	}
-
-	showResultDiv(){
-		if(document.getElementById("textWinner") != null){
-			document.getElementById("textWinner").style.display = "block";
-		}
-
-		for(var i = 0; i < document.getElementsByClassName("boxWinner").length; i++){
-			if(document.getElementsByClassName("boxWinner")[i] != null){
-				document.getElementsByClassName("boxWinner")[i].style.display = "block";
-			}
-		}
 	}
 
 	//re-update values in case user changes any
 	updateValues(){
+		this.props.setShow(false);
 		this.setState({
 			scoreArr: this.props.getScoreArr,
 			responseArr: this.props.getResponseArr,
 			starArr: this.props.getStarArr,
 			forkArr: this.props.getForkArr,
-			watcherArr: this.props.getWatcherArr,
-			keyArr: this.props.getKeyArr
+			watcherArr: this.props.getWatcherArr
 		}, () => {this.compareScore()});
 	}
 
 	//insertion sort score from greatest to least and sort keys in that order
 	compareScore(){
-		this.setState({
-			showWinner: true
-		});
+		this.props.setCompareShow(true);
 
 		var pos = 1;
-		var tempScoreArr = this.state.scoreArr;
-		var tempKeyArr = this.state.keyArr;
 		var tempScoreVal = this.state.scoreArr[0];
-		var tempKeyVal = this.state.keyArr[0];
+		var tempResponseVal = this.state.responseArr[0];
+		var tempStarVal = this.state.starArr[0];
+		var tempForkVal = this.state.forkArr[0];
+		var tempWatcherVal = this.state.watcherArr[0];
 
-		for(var i = 1; i < tempScoreArr.length; i++){
+		for(var i = 1; i < this.state.responseArr.length; i++){
 			pos = i;
-			tempScoreVal = tempScoreArr[i];
-			tempKeyVal = tempKeyArr[i];
+			tempScoreVal = this.state.scoreArr[i];
+			tempResponseVal = this.state.responseArr[i];
+			tempStarVal = this.state.starArr[i];
+			tempForkVal = this.state.forkArr[i];
+			tempWatcherVal = this.state.watcherArr[i];
 
-			while(pos > 0 && tempScoreArr[pos-1] < tempScoreVal){
-				tempScoreArr[pos] = tempScoreArr[pos-1];
-				tempKeyArr[pos] = tempKeyArr[pos-1];
+			while(pos > 0 && this.state.scoreArr[pos-1] < tempScoreVal){
+				this.state.scoreArr[pos] = this.state.scoreArr[pos-1];
+				this.state.responseArr[pos] = this.state.responseArr[pos-1];
+				this.state.starArr[pos] = this.state.starArr[pos-1];
+				this.state.forkArr[pos] = this.state.forkArr[pos-1];
+				this.state.watcherArr[pos] = this.state.watcherArr[pos-1];
 				pos--;
 			}
-			tempScoreArr[pos] = tempScoreVal;
-			tempKeyArr[pos] = tempKeyVal;
+			this.state.scoreArr[pos] = tempScoreVal;
+			this.state.starArr[pos] = tempStarVal;
+			this.state.responseArr[pos] = tempResponseVal;
+			this.state.forkArr[pos] = tempForkVal;
+			this.state.watcherArr[pos] = tempWatcherVal;
 		}
-
-		this.setState({
-			scoreArr: tempScoreArr,
-			keyArr: tempKeyArr
-		});
-
-		this.showResultDiv();
+		this.props.resetResponseArray(this.state.responseArr);
+		this.props.resetScoreArray(this.state.scoreArr);
+		this.props.resetStarArray(this.state.starArr);
+		this.props.resetForkArray(this.state.forkArr);
+		this.props.resetWatcherArray(this.state.watcherArr);
+		console.log(this.state.forkArr);
 	}
 
 	//scroll down to results
-	componentDidUpdate(){
+	/*componentDidUpdate(){
 		if(document.getElementById("textWinner") !== null){
 			if(document.getElementById("textWinner").offsetParent !== null){
 				$('html,body').animate({scrollTop: $(".textWinner").offset().top},'slow');
 			}
 		}
-	}
+	}*/
 
 	render(){
 		var resultArr = [];
 
-		for(var i = 0; i < this.state.scoreArr.length; i++){
-			var currResponse = this.state.responseArr[this.state.keyArr[i]];
-
-			if(currResponse != undefined){
-				resultArr.push(<BoxWinner
+		for(var i = 0; i < this.state.starArr.length; i++){
+			var currResponse = this.state.responseArr[i];
+				resultArr.push(<GitDisplay
 									key={i}
-									showWinner={this.state.showWinner}
-									currResponse={currResponse}
-									getStar={this.state.starArr[this.state.keyArr[i]]}
+									number={i}
+									getShow={this.props.getCompareShow}
+									getResponse={currResponse}
+									getStars={this.state.starArr[i]}
 									getScore={this.state.scoreArr[i]}
-									getWatcher={this.state.watcherArr[this.state.keyArr[i]]}
-									getFork={this.state.forkArr[this.state.keyArr[i]]} />);
-			}
+									getWatchers={this.state.watcherArr[i]}
+									getForks={this.state.forkArr[i]}
+									deleteButton={this.props.deleteCompareInstance} />);
 		}
+
 
 		return(
 			<div className="winnerDiv">
@@ -111,11 +102,8 @@ class GitCompareButton extends React.Component{
 						Compare
 				</button>
 
-				<div className="textWinner" id="textWinner" style={{display: this.state.showWinner ? 'block':'none'}}>
-					Winner:
-					<div className="spacing" style={{display: this.state.showWinner ? 'block':'none'}}>
-						{resultArr}
-					</div>
+				<div className="textWinner" id="textWinner">
+					{resultArr}
 				</div>
 			</div>
 		);

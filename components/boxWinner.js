@@ -6,13 +6,15 @@ class BoxWinner extends React.Component{
 
 	render(){
 		return(
-			<div className="boxWinner" style={{display: this.props.showWinner ? 'block':'none'}}>
+			<div className="box" style={{display: this.props.showWinner ? 'block':'none'}}>
 				<img id="winnerImg" src={this.props.currResponse.avatar_url}></img>
-				<div className="userText winnerText">
-					<div className="winnerName">{this.props.currResponse.login} &nbsp;&nbsp; Score: {this.props.getScore}</div>
+
+				<div className="userText">
+					<div id="winnerName">{this.props.currResponse.login} &nbsp;&nbsp; Score: {this.props.getScore}</div>
+
 					<div className="winnerInfo">
 						<div id="starDiv">
-							<div>Stars</div>
+							<div className="userText numLabels">Stars</div>
 							{this.props.getStar}
 						</div>
 						<div id="forkDiv">

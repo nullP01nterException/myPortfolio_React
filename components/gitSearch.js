@@ -59,7 +59,7 @@ class GitSearch extends React.Component{
             			key: this.props.getObjectKey
             		}, () =>{
             			this.props.setScore(this.state.score);
-            			this.props.setStarCount(this.state.starCount);
+						this.props.setStarCount(this.state.starCount);
             			this.props.setForkCount(this.state.forkCount);
             			this.props.setWatcherCount(this.state.watcherCount);
 
@@ -72,18 +72,20 @@ class GitSearch extends React.Component{
 				}else{
 					this.setState({
             			score: 0
+            		},()=>{
+            			this.props.setScore(this.state.score);
             		});
-            		this.props.setScore(this.state.score);
 				}		
         	}else{
         		this.setState({
             			score: 0
+            		},() => {
+            			this.props.setScore(this.state.score);
             		});
-            	this.props.setScore(this.state.score);
         	}
         }.bind(this);
 
-        this.props.setScore(this.state.score);
+        //this.props.setScore(this.state.score);
     	xmlHttp.open("GET", this.state.response.repos_url, true);
     	xmlHttp.send(null);
 	}
@@ -106,6 +108,7 @@ class GitSearch extends React.Component{
 		this.setState({
 			showDiv: true
 		});
+		this.props.setCompareShow(false);
 
 		var xmlHttp = new XMLHttpRequest();
 
@@ -118,9 +121,10 @@ class GitSearch extends React.Component{
 						response: XMLResponse,
 						isSuccess: true,
 						showDiv: true
+					}, ()=>{
+						{this.accepted()}
+						this.getScore(XMLResponse.public_repos + XMLResponse.followers);
 					});
-					{this.accepted()}
-					this.getScore(XMLResponse.public_repos + XMLResponse.followers);
 				}else{
 					this.setState({
 						inputText: "",
