@@ -63,15 +63,6 @@ class Programming extends React.Component{
 	}
 
 	setForkArray(num){
-		/*this.setState({
-			tempFork: num
-		},()=>{
-			var temp = Array.from(this.state.forkArr);
-			temp[this.state.objectKey] = this.state.tempFork;
-			this.setState({
-				forkArr: temp
-			});
-		});*/
 		this.setState({
 			forkArr: this.state.forkArr.concat(num)
 		});
@@ -84,27 +75,14 @@ class Programming extends React.Component{
 	}
 
 	setWatcherArray(num){
-		/*this.setState({
-			tempWatcher: num
-		},()=>{
-			var temp = Array.from(this.state.watcherArr);
-			temp[this.state.objectKey] = this.state.tempWatcher;
-			this.setState({
-				watcherArr: temp
-			});
-		});*/
 		this.setState({
 			watcherArr: this.state.watcherArr.concat(num)
-		},()=>{
-			console.log(this.state.watcherArr);
 		});
 	}
 
 	resetWatcherArray(arr){
 		this.setState({
 			watcherArr: arr
-		},()=>{
-			console.log(this.state.watcherArr);
 		});
 	}
 
@@ -124,28 +102,17 @@ class Programming extends React.Component{
 	}
 
 	setScoreArray(score){
-		/*this.setState({
-			tempScore: score
-		},()=>{
-			var temp = Array.from(this.state.scoreArr);
-			temp[this.state.objectKey] = this.state.tempScore;
-			this.setState({
-				scoreArr: temp
-			});
-		});*/
+		this.setState({
+			count: this.state.count + 1
+		},() =>{
+			if(this.state.count%4==0){
+				this.setState({
+					scoreArr: this.state.scoreArr.concat(score),
+					count: 0
+				});
+			}
+		});
 
-	this.setState({
-		count: this.state.count + 1
-	},() =>{
-		if(this.state.count%4==0){
-			this.setState({
-				scoreArr: this.state.scoreArr.concat(score),
-				count: 0
-			});
-		}
-	})
-
-		
 		//set enableCompare here b/c state not updated after setState in setResponseArray
 		this.enableCompare();
 	}
@@ -188,6 +155,10 @@ class Programming extends React.Component{
 					});
 				}
 			}
+		}else{
+			this.setState({
+				canCompare: false
+			});
 		}
 	}
 

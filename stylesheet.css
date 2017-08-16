@@ -167,6 +167,7 @@ button[disabled], html input[disabled] {
 .infoBox{
   text-align: center;
   display: none;
+  padding-left:100px;
 }
 
 .nameDiv{
