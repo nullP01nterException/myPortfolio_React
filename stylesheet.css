@@ -4,59 +4,29 @@ footer{
 }
 
 .aboutContent{
+  position:relative;
+  top:100px;
+  z-index:5;
   margin: auto;
-
+  opacity: 0.8;
   border: 3px solid #dddddd;
   width: 60%;
   height: 600px;
   background: #eeeeee;
   border-radius: 2%;
   text-align: center;
-}
-
-.active{
-  box-shadow: 0px 0px 10px #777777;
+  font-size:24px;
 }
 
 .artContent{
   margin: auto;
   text-align: center;
+  font-size:30px;
 }
 
-.nav{
-	background-color: #fff;
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0px -2px 8px #777777;
-  z-index: 100;
-}
-
-.nav a{
-	display: inline-block;
-  width: 25%;
-  padding: .75rem 0;
-  margin: auto;
-  text-decoration: none;
-  color: #333;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 200%;
-  font-weight:bold;
-}
-
-.nav a:hover{
-	color:#dddddd;
-}
-
-.nav ul{
-	padding: 0;
-  margin-top: 100px;
-  margin-bottom: 0;
-}
-.nav ul li{
-	display:inline;
-	padding: 0;
+.artContent .picture{
+  width:500px;
+  height:auto;
 }
 
 .programmingContent{
@@ -69,9 +39,125 @@ footer{
   height: 50px;
 }
 
-.topMargin{
-  z-index: 99;
-  margin-top:220px;
+/*********************navbar css *************************/
+body{
+  background: url("data/images/backgroundWithStripe.png") no-repeat center center fixed;
+  background-size: cover;
+  z-index:-1;
+}
+
+.activeTab{
+  transform: scaleY(-1);
+}
+
+.active{
+  transform: scaleY(-1);
+}
+
+.routerLink{
+  font-family: 'Josefin Sans', sans-serif;
+  color: #000000;
+  font-size:45px;
+}
+
+.tab{
+  background-image: url("data/images/navbarTab.png");
+  background-repeat: no-repeat;
+  width:874px;
+  height:100px;
+  z-index:9;
+  position:fixed;
+  left:-1000px;
+  margin-top:90px;
+  cursor: pointer;
+}
+
+#about{
+  top:100px;
+}
+
+#about .routerLink{
+  position:absolute;
+  left:475px;
+  top:15px;
+}
+
+#about:hover{
+  left:-300px;
+}
+
+#art{
+  top:250px;
+}
+
+#art .routerLink{
+  position:absolute;
+  top:15px;
+  left:450px;
+}
+
+#art:hover{
+  left:-150px;
+}
+
+#code{
+  top:400px;
+}
+
+#code .routerLink{
+  position:absolute;
+  top:15px;
+  left:300px;
+}
+
+#code:hover{
+  left:0px;
+}
+
+#main{
+  user-select:none;
+  user-drag:none;
+}
+
+#navbar{
+  position:relative;
+}
+
+#navbar #beam{
+  background-repeat: repeat-y;
+  background-image: url("data/images/navbarBeam.png");
+  width:43px;
+  height:100vh;
+  position:fixed;
+  left:-100px;
+  top:-1000px;
+  transform: skewX(10deg);
+  z-index:8;
+}
+
+#navGlyph{
+  position:fixed;
+  z-index:101;
+  top: 32px;
+  left:35px;
+  font-size:40px;
+  cursor:pointer;
+}
+
+#navbarButton{
+  position:fixed;
+  padding:10px;
+  width:110px;
+  height:100px;
+  outline:none;
+  z-index: 100;
+}
+
+#navbarButton:active{
+  padding:10px;
+  width:100px;
+  height:90px;
+  outline:none;
 }
 
 /*******************git program css**********************/
@@ -218,7 +304,7 @@ button[disabled], html input[disabled] {
 }
 
 .userText{
-  color: white;
+  color: black;
   font-family: 'Josefin Sans', sans-serif;
 }
 

@@ -6,8 +6,10 @@ class Art extends React.Component{
 
 	render(){
 		return(
-			<div className="artContent topMargin">
-				art
+			<div className="artContent userText">
+				<h1>Art</h1>
+				<img className="picture" src="data/gallery/bloodmoon akali.png"></img>
+				<img className="picture" src="data/gallery/umi.png"></img>
 			</div>
 		);
 	}
