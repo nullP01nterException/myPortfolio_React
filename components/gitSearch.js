@@ -3,10 +3,9 @@ class GitSearch extends React.Component{
 		super(props);
 
 		this.state = {
-			inputText: "search user...",
+			inputText: "search GitHub repo...",
 			user: "",
 			showDiv: false,
-			isSuccess: false,
 			score: 0,
 			forkCount: 0,
 			starCount: 0,
@@ -19,16 +18,6 @@ class GitSearch extends React.Component{
 		this.handleUsername = this.handleUsername.bind(this);
 		this.getUsername = this.getUsername.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
-		this.accepted = this.accepted.bind(this);
-		this.rejected = this.rejected.bind(this);
-	}
-
-	accepted(){
-		$(".search").effect("highlight");
-	}
-
-	rejected(){
-		$(".wrap").effect("shake",{times:3}, 10);
 	}
 
 	getScore(initScore){
@@ -55,32 +44,32 @@ class GitSearch extends React.Component{
             			scoreResponse: XMLResponse,
             			starCount: star,
             			forkCount: fork,
-            			watcherCount: watcher,
-            			key: this.props.getObjectKey
+            			watcherCount: watcher
             		}, () =>{
             			this.props.setScore(this.state.score);
 						this.props.setStarCount(this.state.starCount);
             			this.props.setForkCount(this.state.forkCount);
             			this.props.setWatcherCount(this.state.watcherCount);
+            			this.props.setMode("display");
 
             			this.setState({
             				key: this.state.key+1
             			},()=>{
-            				this.props.setObjectKey(this.state.key);
+            				//this.props.setObjectKey(this.state.key);
             			});
             		});
 				}else{
 					this.setState({
             			score: 0
             		},()=>{
-            			this.props.setScore(this.state.score);
+            			//this.props.setScore(this.state.score);
             		});
 				}		
         	}else{
         		this.setState({
             			score: 0
             		},() => {
-            			this.props.setScore(this.state.score);
+            			//this.props.setScore(this.state.score);
             		});
         	}
         }.bind(this);
@@ -108,7 +97,6 @@ class GitSearch extends React.Component{
 		this.setState({
 			showDiv: true
 		});
-		this.props.setCompareShow(false);
 
 		var xmlHttp = new XMLHttpRequest();
 
@@ -119,46 +107,45 @@ class GitSearch extends React.Component{
             		this.setState({
 						inputText: "",
 						response: XMLResponse,
-						isSuccess: true,
 						showDiv: true
 					}, ()=>{
-						{this.accepted()}
+						//makes AJAX call to calculate score on successful call
 						this.getScore(XMLResponse.public_repos + XMLResponse.followers);
+
+						this.props.setResponse(this.state.response);
+						this.props.setShow(this.state.showDiv);
 					});
 				}else{
+					//if call is unsuccessful (status != 200)...
 					this.setState({
 						inputText: "",
 						response: XMLResponse,
-						showDiv: false,
-						isSuccess: false
+						showDiv: false
+					},()=>{
+						this.props.setMode("display");
+						this.props.setShow(this.state.showDiv);
 					});
 				}
-				this.props.setResponseArray(this.state.response);
+				this.props.setResponse(this.state.response);
         	}else{
-        		//var XMLResponse = JSON.parse(xmlHttp.responseText);
         		this.setState({
 					inputText: "",
 					response: [],
-					showDiv: false,
-					isSuccess: false
+					showDiv: false
 				});
-				this.props.setResponseArray(this.state.response);
         	}
     	}.bind(this);
     	if(cookieUser == ""){
     		xmlHttp.open("GET", "https://api.github.com/users/"+this.state.user, true); // true for asynchronous
-    		//this.props.setUserText(this.state.inputText);
     	}else{
     		xmlHttp.open("GET", "https://api.github.com/users/"+cookieUser, true);
     		console.log(cookieUser);
     	}
     	xmlHttp.send(null);
-
-    	//this.props.setShow(this.state.showDiv);
 	}
 
 	onFocus(){
-		if(this.state.inputText=="search user..."){
+		if(this.state.inputText=="search GitHub repo..."){
     		this.setState({
     			inputText: ""
     		})
@@ -168,7 +155,7 @@ class GitSearch extends React.Component{
 	onBlur(){
 		if(this.state.inputText==""){
 			this.setState({
-    			inputText: "search user..."
+    			inputText: "search GitHub repo..."
     		})
     	}
 	}
@@ -181,6 +168,10 @@ class GitSearch extends React.Component{
 
 				<button className="searchButton" id="searchButton" onClick={() => this.handleUsername("")}>
 					<i className="glyphicon glyphicon-search"></i>
+				</button>
+
+				<button className="deleteButton" >
+					<i className="glyphicon glyphicon-trash" onClick={() => this.props.deleteCompareInstance(this.props.number)}></i>
 				</button>
 			</div>
 		)

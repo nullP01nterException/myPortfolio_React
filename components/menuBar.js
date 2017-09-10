@@ -110,55 +110,52 @@ class MenuBar extends React.Component{
 
 	animateAbout(direction, time){
 		if(direction == "in"){
-			$("#about").animate({left:'-400px'},time);
+			$("#about").animate({left:'-600px'},time);
 		}else if(direction == "out"){
 			$("#about").animate({left:'-1000px'},time);
 		}else if(direction == "active"){
-			$("#about").animate({left:'0px'},time);
+			$("#about").animate({left:'-600px'},time);
 		}
 	}
 
 	animateArt(direction, time){
 		if(direction == "in"){
-			$("#art").animate({left:'-250px'},time);
+			$("#art").animate({left:'-550px'},time);
 		}else if(direction == "out"){
 			$("#art").animate({left:'-1000px'},time);
 		}else if(direction == "active"){
-			$("#art").animate({left:'0px'},time);
+			$("#art").animate({left:'-550px'},time);
 		}
 	}
 
 	animateProgramming(direction, time){
 		if(direction == "in"){
-			$("#code").animate({left:'-100px'},time);
+			$("#code").animate({left:'-500px'},time);
 		}else if(direction == "out"){
 			$("#code").animate({left:'-1000px'},time, function(){
-				$("#beam").animate({top:'-1000px', left:'-100px'},400);
+				$("#beam").animate({top:-(document.getElementById("beam").clientHeight), left:'-100px'},400);
 			});
 		}else if(direction == "active"){
-			$("#code").animate({left:'0px'},time);
+			$("#code").animate({left:'-500px'},time);
 		}
 	}
 
 	render(){
 		return(
-			<div>
-				<div id="navbar">
-					<div id="beam"></div>
+			<div id="navbar">
+				<div id="beam"></div>
 
-					<div className="tab" id="about" onClick={() => this.redirect("/", "about")}>
-						<IndexLink to="/" className="routerLink" activeClassName="active">About Me</IndexLink>
-					</div>
-
-					<div className="tab" id="art" onClick={() => this.redirect("/art", "art")}>
-						<Link to="art" className="routerLink" activeClassName="active">Art</Link>
-					</div>
-
-					<div className="tab" id="code" onClick={() => this.redirect("/programming", "code")}>
-						<Link to="programming" className="routerLink" activeClassName="active">Programming</Link>
-					</div>
+				<div className="tab" id="about" onClick={() => this.redirect("/", "about")}>
+					<IndexLink to="/" className="routerLink" activeClassName="active">About</IndexLink>
 				</div>
 
+				<div className="tab" id="art" onClick={() => this.redirect("/art", "art")}>
+					<Link to="art" className="routerLink" activeClassName="active">Art</Link>
+				</div>
+
+				<div className="tab" id="code" onClick={() => this.redirect("/programming", "code")}>
+					<Link to="programming" className="routerLink" activeClassName="active">Programming</Link>
+				</div>
 			</div>
 		);
 	}

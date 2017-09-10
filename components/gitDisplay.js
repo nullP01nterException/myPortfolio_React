@@ -5,30 +5,26 @@ class GitDisplay extends React.Component{
 
 	render(){
 		var response = this.props.getResponse;
-		//console.log(this.props.getForks);
-		//console.log(this.props.number);
-		//console.log(this.props.getForks[this.props.number]);
 
 		var showName = null;
-		if(this.props.getShow){
+		if(Object.keys(response).length != 2){
 			showName = <a id="userName" className="userText" href={response.html_url}>{response.login}</a>;
 		}else{
-			showName=<a id="userName" className="userText" href="">{response.message}</a>;
+			showName=<span id="userName" className="userText" style={{color:'red'}}>{response.message}</span>;
 		}
 
 		return(
-			<div className="box" style={{display: this.props.getShow ? 'block' : 'none'}}>
-				<img id="userImg" src={response.avatar_url} 
-					style={{display: this.props.getShow ? 'block' : 'none'}}></img>
+			<div className="box">
+				<img id="userImg" src={response.avatar_url} style={{display: this.props.getShow ? 'inline-block' : 'none'}}></img>
+				
 				<div className="nameDiv userText">
-					{showName} &nbsp;&nbsp; Score: {this.props.getScore}
+					{showName}
+					<span style={{display: this.props.getShow ? 'inline-block' : 'none'}}>
+						&nbsp;&nbsp; Score: {this.props.getScore}
+					</span>
 				</div>
 
-				<button className="deleteButton" >
-					<i className="glyphicon glyphicon-trash" onClick={() => this.props.deleteButton(this.props.number)}></i>
-				</button>
-
-				<div className="infoBox">
+				<div className="infoBox" style={{display: this.props.getShow ? 'inline-block' : 'none'}}>
 					<div id="forkDiv">
 						<div type="text" className="userText numLabels">Forks</div>
 						<div id="repoNum" className="userText nums">{this.props.getForks}</div>
@@ -44,6 +40,10 @@ class GitDisplay extends React.Component{
 						<div id="orgNum" className="userText nums">{this.props.getWatchers}</div>
 					</div>
 				</div>
+
+				<button className="deleteButton" >
+					<i className="glyphicon glyphicon-trash" onClick={() => this.props.deleteCompareInstance(this.props.number)}></i>
+				</button>
 			</div>
 		)
 	}

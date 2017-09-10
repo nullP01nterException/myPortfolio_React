@@ -6,23 +6,11 @@ class AddCompareComponent extends React.Component{
 	}
 	render(){
 		return(
-			<div>
-				<div className="addCompareInstances">
-					<button
-						className="searchButton"
-						id="deleteInstance"
-						onClick={this.props.deleteCompareInstance}>-</button>
-
-					<span className="displayCompareInstances">{this.props.getCompareInstances}</span>
-
-					<button
-						className="searchButton"
-						id="addInstance"
-						onClick={this.props.addCompareInstance}>+</button>
-				</div>
-				<div>
-					{this.props.children}
-				</div>
+			<div className="addCompareInstances">
+				<button className="addComponentButton" onClick={this.props.onClick}>
+					<i className="glyphicon glyphicon-plus addIcon"></i>
+					Add Repo
+				</button>
 			</div>
 		)
 	}

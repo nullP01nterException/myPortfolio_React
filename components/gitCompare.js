@@ -6,24 +6,24 @@ class GitCompare extends React.Component{
 		this.state = {
 			responseList: [],
 			showDiv: false,
-			isSuccess: false,
 			userText: "",
-			gitScore: [],
-			starCount: [],
-			watcherCount: [],
-			forkCount: []
+			gitScore: 0,
+			starCount: 0,
+			watcherCount: 0,
+			forkCount: 0,
+			mode: "search"
 		};
 
 		this.setScore = this.setScore.bind(this);
 		this.setResponseList = this.setResponseList.bind(this);
 		this.setShowDiv = this.setShowDiv.bind(this);
-		this.setIsSuccess = this.setIsSuccess.bind(this);
 		this.setUserText = this.setUserText.bind(this);
 		this.setCookie = this.setCookie.bind(this);
 
 		this.setStarCount = this.setStarCount.bind(this);
 		this.setForkCount = this.setForkCount.bind(this);
 		this.setWatcherCount = this.setWatcherCount.bind(this);
+		this.setMode = this.setMode.bind(this);
 	}
 
 	/****causing: Warning: performUpdateIfNecessary: Unexpected batch number (current 10, pending 1)*****/
@@ -31,46 +31,42 @@ class GitCompare extends React.Component{
 		this.handleCookie()
 	}*/
 
+	setMode(currMode){
+		this.setState({
+			mode: currMode
+		});
+	}
+
 	setResponseList(response){
 		this.setState({
 			responseList: response
 		});
-		this.props.setResponse(this.state.responseList);
-		this.props.setObjectKey(this.props.number);
 	}
 
 	setStarCount(num){
 		this.setState({
 			starCount: num
 		});
-		this.props.setStar(this.state.starCount);
 	}
 
 	setWatcherCount(num){
 		this.setState({
 			watcherCount: num
 		});
-		this.props.setWatcher(this.state.watcherCount);
 	}
 
 	setForkCount(num){
 		this.setState({
 			forkCount: num
 		});
-		this.props.setFork(this.state.forkCount);
-	}
-
-	setIsSuccess(success){
-		this.setState({
-			isSuccess: success
-		});
 	}
 
 	setScore(score){
 		this.setState({
 			gitScore: score
+		},()=>{
+			this.props.setScoreArray(this.props.number, this.state.gitScore);
 		});
-		this.props.setGitScore(this.state.gitScore);
 	}
 
 	setShowDiv(show){
@@ -108,23 +104,33 @@ class GitCompare extends React.Component{
 	}
 
 	render(){
-		return(
-			<div className="compareDiv">
-				<GitSearch
+		var shownComponent = <GitSearch
+					number={this.props.number}
+					deleteCompareInstance={this.props.deleteCompareInstance}
+					setMode={this.setMode}
 					setResponse={this.setResponseList}
 					setShow={this.setShowDiv}
-					setSuccess={this.setIsSuccess}
 					setUserText={this.setUserText}
 					setScore={this.setScore}
 					setStarCount={this.setStarCount}
 					setWatcherCount={this.setWatcherCount}
-					setForkCount={this.setForkCount}
-					ref={(child) => {this.searchChild = child}} />
+					setForkCount={this.setForkCount} />;
 
-				<GitDisplay
+		if(this.state.mode == "display"){
+			shownComponent = <GitDisplay
+					number={this.props.number}
+					deleteCompareInstance={this.props.deleteCompareInstance}
 					getResponse={this.state.responseList}
 					getShow={this.state.showDiv}
-					getSuccess={this.state.isSuccess} />
+					getScore={this.state.gitScore}
+					getForks={this.state.forkCount}
+					getStars={this.state.starCount}
+					getWatchers={this.state.watcherCount} />;
+		}
+
+		return(
+			<div className="gitComponent">
+				{shownComponent}
 			</div>
 		)
 	}

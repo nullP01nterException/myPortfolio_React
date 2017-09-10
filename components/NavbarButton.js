@@ -3,11 +3,13 @@ class NavbarButton extends React.Component{
 		super(props);
 
 		this.state={
-			showNavbar: true
+			showNavbar: true,
+			xPos: 0,
+			yPos: 0
 		};
 		this.toggleNavbar=this.toggleNavbar.bind(this);
+		this.mousePos=this.mousePos.bind(this);
 	}
-
 
 	toggleNavbar(){
 		this.setState({
@@ -17,10 +19,23 @@ class NavbarButton extends React.Component{
 		});
 	}
 
+	mousePos(e){
+		this.setState({
+			xPos: e.clientX,
+			yPos: e.clientY
+		});
+	}
+
 	render(){
 		return(
 			<div>
-				<input id="navbarButton" type="image" src="data/images/navbarButton.png" onClick={this.toggleNavbar}></input>
+				<input
+					id="navbarButton"
+					type="image" src="data/images/navbarButton.png"
+					onClick={this.toggleNavbar}
+					onMouseMove={this.mousePos}></input>
+
+				<div id="tooltip" style={{left:this.state.xPos+15, top:this.state.yPos+30}}>Menu</div>
 			</div>
 		);
 	}

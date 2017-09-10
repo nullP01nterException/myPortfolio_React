@@ -5,10 +5,9 @@ class GitCompareButton extends React.Component{
 
 		this.state = {
 			scoreArr: this.props.getScoreArr,
-			responseArr: this.props.getResponseArr,
-			starArr: this.props.getStarArr,
-			forkArr: this.props.getForkArr,
-			watcherArr: this.props.getWatcherArr
+			compareInstanceArr: this.props.getCompareInstanceArr,
+			showLoading: false,
+			showFinish: false
 		};
 		this.updateValues = this.updateValues.bind(this);
 		this.compareScore = this.compareScore.bind(this);
@@ -16,55 +15,40 @@ class GitCompareButton extends React.Component{
 
 	//re-update values in case user changes any
 	updateValues(){
-		this.props.setShow(false);
 		this.setState({
+			showLoading: true,
+			showFinish: false,
 			scoreArr: this.props.getScoreArr,
-			responseArr: this.props.getResponseArr,
-			starArr: this.props.getStarArr,
-			forkArr: this.props.getForkArr,
-			watcherArr: this.props.getWatcherArr
+			compareInstanceArr: this.props.getCompareInstanceArr
 		}, () => {this.compareScore()});
 	}
 
 	//insertion sort score from greatest to least and sort keys in that order
 	compareScore(){
-		this.props.setCompareShow(true);
-
 		var pos = 1;
 		var tempScoreVal = this.state.scoreArr[0];
-		var tempResponseVal = this.state.responseArr[0];
-		var tempStarVal = this.state.starArr[0];
-		var tempForkVal = this.state.forkArr[0];
-		var tempWatcherVal = this.state.watcherArr[0];
+		var tempCompareVal = this.state.compareInstanceArr[0];
 
-		for(var i = 1; i < this.state.responseArr.length; i++){
+		for(var i = 1; i < this.state.compareInstanceArr.length; i++){
 			pos = i;
 			tempScoreVal = this.state.scoreArr[i];
-			tempResponseVal = this.state.responseArr[i];
-			tempStarVal = this.state.starArr[i];
-			tempForkVal = this.state.forkArr[i];
-			tempWatcherVal = this.state.watcherArr[i];
+			tempCompareVal = this.state.compareInstanceArr[i];
 
-			while(pos > 0 && this.state.scoreArr[pos-1] < tempScoreVal){
+			while(pos > 0 && this.state.scoreArr[pos-1].score < tempScoreVal.score){
 				this.state.scoreArr[pos] = this.state.scoreArr[pos-1];
-				this.state.responseArr[pos] = this.state.responseArr[pos-1];
-				this.state.starArr[pos] = this.state.starArr[pos-1];
-				this.state.forkArr[pos] = this.state.forkArr[pos-1];
-				this.state.watcherArr[pos] = this.state.watcherArr[pos-1];
+				this.state.compareInstanceArr[pos] = this.state.compareInstanceArr[pos-1];
 				pos--;
 			}
 			this.state.scoreArr[pos] = tempScoreVal;
-			this.state.starArr[pos] = tempStarVal;
-			this.state.responseArr[pos] = tempResponseVal;
-			this.state.forkArr[pos] = tempForkVal;
-			this.state.watcherArr[pos] = tempWatcherVal;
+			this.state.compareInstanceArr[pos] = tempCompareVal;
 		}
-		this.props.resetResponseArray(this.state.responseArr);
+		this.props.resetCompareInstanceArray(this.state.compareInstanceArr);
 		this.props.resetScoreArray(this.state.scoreArr);
-		this.props.resetStarArray(this.state.starArr);
-		this.props.resetForkArray(this.state.forkArr);
-		this.props.resetWatcherArray(this.state.watcherArr);
-		console.log(this.state.forkArr);
+		//change button loading to success
+		this.setState({
+			showLoading: false,
+			showFinish: true
+		});
 	}
 
 	//scroll down to results
@@ -77,34 +61,20 @@ class GitCompareButton extends React.Component{
 	}*/
 
 	render(){
-		var resultArr = [];
-
-		for(var i = 0; i < this.state.starArr.length; i++){
-			var currResponse = this.state.responseArr[i];
-				resultArr.push(<GitDisplay
-									key={i}
-									number={i}
-									getShow={this.props.getCompareShow}
-									getResponse={currResponse}
-									getStars={this.state.starArr[i]}
-									getScore={this.state.scoreArr[i]}
-									getWatchers={this.state.watcherArr[i]}
-									getForks={this.state.forkArr[i]}
-									deleteButton={this.props.deleteCompareInstance} />);
-		}
-
-
 		return(
-			<div className="winnerDiv">
+			<div className="compareDiv">
 				<button className="compareButton"
 					onClick={this.updateValues}
 					disabled={!this.props.canCompare}>
-						Compare
-				</button>
+					<i className="glyphicon glyphicon-sort" style={{display: 'inline-block'}}></i>
+					&nbsp;Sort Repos&nbsp;
 
-				<div className="textWinner" id="textWinner">
-					{resultArr}
-				</div>
+					<i className="fa fa-circle-o-notch fa-spin"
+						style={{display: this.state.showLoading ? 'inline-block':'none'}}></i>
+
+					<i className="glyphicon glyphicon-ok-circle"
+						id="finishIcon" style={{display: this.state.showFinish ? 'inline-block':'none'}}></i>
+				</button>
 			</div>
 		);
 	}

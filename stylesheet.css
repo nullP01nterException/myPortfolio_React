@@ -5,59 +5,108 @@ footer{
 
 .aboutContent{
   position:relative;
-  top:100px;
+  top:15vh;
   z-index:5;
   margin: auto;
   opacity: 0.8;
-  border: 3px solid #dddddd;
-  width: 60%;
-  height: 600px;
+  border: 3px solid #42f4e5;
+  width: 40%;
+  height: auto;
   background: #eeeeee;
   border-radius: 2%;
   text-align: center;
-  font-size:24px;
+  font-size:26px;
+  padding-left:20px;
+  padding-right:20px;
 }
 
 .artContent{
   margin: auto;
   text-align: center;
   font-size:30px;
-}
-
-.artContent .picture{
-  width:500px;
-  height:auto;
+  position:relative;
+  z-index: 5;
+  height:0px;
 }
 
 .programmingContent{
   margin:auto;
-}
-
-.spacing{
+  position:absolute;
+  z-index:7;
   width:100%;
-  clear:both;
-  height: 50px;
+  top:15vh;
 }
 
-/*********************navbar css *************************/
+/************************art css*************************/
+.artThumbnail{
+  margin:auto;
+  text-align: center;
+}
+
+.innerHexagon{
+  overflow: hidden;
+  height: 100%;
+  transform: rotate(-60deg);
+}
+
+.innerHexagon2{
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  visibility: visible;
+  transform:rotate(-60deg);
+}
+
+.innerHexagon2.selected{
+  border: 5px solid #42f4e5;
+}
+
+.outerHexagon{
+  overflow: hidden;
+  visibility: hidden;
+  transform: rotate(180deg);
+  cursor: pointer;
+  height: 120px;
+  margin: 0 0 10px 0px;
+}
+
+.picture{
+  height:auto;
+  border: 5px solid #000;
+}
+
+.thumbnails{
+  transform:rotate(-90deg);
+  position: relative;
+  top: -225px;
+}
+
+#artDisplay{
+  position:relative;
+  top:-450px;
+  margin-bottom: 50px;
+}
+
+/*********************navbar css*************************/
 body{
   background: url("data/images/backgroundWithStripe.png") no-repeat center center fixed;
   background-size: cover;
   z-index:-1;
 }
 
-.activeTab{
-  transform: scaleY(-1);
+.tab.activeTab{
+  /*transform: scaleY(-1);*/
+  background-image:url("data/images/navbarTabActive.png");
 }
 
 .active{
-  transform: scaleY(-1);
+  /*transform: scaleY(-1);*/
 }
 
 .routerLink{
   font-family: 'Josefin Sans', sans-serif;
   color: #000000;
-  font-size:45px;
+  font-size:36px;
 }
 
 .tab{
@@ -78,8 +127,8 @@ body{
 
 #about .routerLink{
   position:absolute;
-  left:475px;
-  top:15px;
+  left:625px;
+  top:25px;
 }
 
 #about:hover{
@@ -92,8 +141,8 @@ body{
 
 #art .routerLink{
   position:absolute;
-  top:15px;
-  left:450px;
+  top:25px;
+  left:650px;
 }
 
 #art:hover{
@@ -106,8 +155,8 @@ body{
 
 #code .routerLink{
   position:absolute;
-  top:15px;
-  left:300px;
+  top:25px;
+  left:525px;
 }
 
 #code:hover{
@@ -127,7 +176,7 @@ body{
   background-repeat: repeat-y;
   background-image: url("data/images/navbarBeam.png");
   width:43px;
-  height:100vh;
+  height:100%;
   position:fixed;
   left:-100px;
   top:-1000px;
@@ -160,33 +209,68 @@ body{
   outline:none;
 }
 
+#navbarButton:hover + #tooltip{
+  visibility:visible;
+}
+
+#tooltip{
+  position:fixed;
+  z-index:101;
+  width: auto;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-family: 'Josefin Sans', sans-serif;
+  visibility:hidden;
+  font-size: 20px;
+  padding:3px;
+}
+
 /*******************git program css**********************/
+.addComponentButton{
+  position:relative;
+  background:#42f4e5;
+  font-size:30px;
+  display:inline-block;
+  cursor:pointer;
+  top:4px;
+  border:2px solid #42f4e5;
+  border-radius:3px;
+  text-align:center;
+  color:#fff;
+}
+
+.addIcon{
+  color:#fff;
+  font-size: 30px;
+  display:inline-block;
+  padding:5px;
+  text-align:center;
+}
+
 .addCompareInstances{
   margin:auto;
   text-align: center;
+  display:inline-block;
 }
 
 .box{
+  display:flex;
   margin:auto;
-  margin-top: 28px;
-  border: 3px solid #165b28;
-  width: 40%;
-  height:86px;
-  background: #2fc456;
+  border: none;
+  width: 50%;
+  height:auto;
+  background: transparent;
   border-radius: 2%;
   position:relative;
-}
-
-.box:hover{
-  height:200px;
-}
-
-.box:hover .infoBox{
-  display:block;
+  border-bottom: solid #000;
+  justify-content:space-between;
 }
 
 .box:hover .deleteButton{
-  display:block;
+  visibility: visible;
 }
 
 .boxWinner{
@@ -201,15 +285,24 @@ body{
 }
 
 .compareButton{
-  width:150px;
+  width:auto;
   height:50px;
-  border: 2px solid #34ef65;
-  background: #34ef65;
+  border: 2px solid #22f7e6;
+  background: #22f7e6;
   text-align: center;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
   font-size: 27px;
+  position:relative;
+  top:50%;
+}
+
+.compareDiv{
+  margin: auto;
+  text-align: center;
+  padding:20px;
+  display:inline-block;
 }
 
 button[disabled], html input[disabled] {
@@ -218,20 +311,13 @@ button[disabled], html input[disabled] {
     background: #aaaaaa;
 }
 
-.compareDiv{
- float:left;
- width:50%;
-}
-
 .deleteButton{
-  display:none;
-  position:absolute;
-  bottom:0;
-  right:0;
-  background: #2fc456;
+  position:relative;
+  background: transparent;
   border:none;
-  color: #165b28;
+  color: #42f4e5;
   font-size:20px;
+  visibility: hidden;
 }
 
 .displayCompareInstances{
@@ -250,50 +336,66 @@ button[disabled], html input[disabled] {
   font-size: 20px;
 }
 
+.extraPadding{
+  position:relative;
+  height:0px;
+}
+
+.gitComponent{
+  margin-top:25px;
+  margin-bottom:25px;
+}
+
 .infoBox{
   text-align: center;
-  display: none;
-  padding-left:100px;
+  position: relative;
+  display:inline-block;
 }
 
 .nameDiv{
   margin: auto;
-  margin-top:-11%;
   text-align:center;
+  position:relative;
+  display: inline-block;
+  font-size:3vw;
+  top:17px;
 }
 
 .nums{
-  font-size:25px;
+  font-size:20px;
 }
 
 .numLabels{
   margin: auto;
   text-decoration: underline;
-  font-size:30px;
+  font-size:20px;
+}
+
+.programmingButtons{
+  text-align: center;
 }
 
 .search{
-  border: 3px solid #34ef65;
+  border: none;
+  border-bottom: solid #000;
   padding: 5px;
-  border-radius: 5px;
   height: 50px;
   width: 40%;
   outline: none;
-  color: #a0a0a0;
   font-size: 20px;
+  background:transparent;
 }
 
 .searchButton {
   position: relative;  
-  left: -8px;
-  top: 1px;
+  left: -35px;
+  top: 3px;
   width: 50px;
   height: 50px;
-  border: 1px solid #34ef65;
-  background: #34ef65;
+  border: none;
+  background: transparent;
   text-align: center;
-  color: #fff;
-  border-radius: 3px;
+  color: #42f4e5;
   cursor: pointer;
   font-size: 20px;
 }
@@ -301,16 +403,13 @@ button[disabled], html input[disabled] {
 .textWinner{
   font-family: 'Josefin Sans', sans-serif;
   font-size: 35px;
+  position:relative;
+  width:50%;
 }
 
 .userText{
   color: black;
   font-family: 'Josefin Sans', sans-serif;
-}
-
-.winnerDiv{
-  margin: auto;
-  text-align: center;
 }
 
 .winnerInfo{
@@ -335,36 +434,42 @@ button[disabled], html input[disabled] {
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
+  position:relative;
+  left:41px;
+}
+
+.wrap:hover .deleteButton{
+  visibility:visible;
+  left: -40px;
+  top: 2px;
 }
 
 #forkDiv{
-  float:left;
-  width:21.5%;
-  padding-top:20px;
+  display:inline-block;
+  padding:10px;
 }
 
 #starDiv{
-  float:left;
-  width:21.5%;
-  padding-top:20px;
+  display:inline-block;
+  padding:10px;
 }
 
 #userImg{
-  margin-left: -6%;
-  height: 80px;
+  height: 60px;
   border-radius: 50%;
-  border: 4px solid #165b28;
+  border: 3px solid #42f4e5;
   display: none;
+  position:relative;
+  top:1vh;
 }
 
 #userName{
-  font-size: 40px;
+  font-size: 3vw;
 }
 
 #watcherDiv{
-  float:left;
-  width:21.5%;
-  padding-top:20px;
+  display:inline-block;
+  padding:10px;
 }
 
 #winnerImg{
