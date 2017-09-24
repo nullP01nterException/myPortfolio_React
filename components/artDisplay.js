@@ -1,3 +1,5 @@
+/*Displays art by get current src from Art component*/
+
 class ArtDisplay extends React.Component{
 	constructor(props){
 		super(props);

@@ -1,5 +1,4 @@
-/*this component renders the add/delete buttons;
-  parent of the gitCompare component*/
+/*Adds another GitHub compare component by pushing to array in Programming component*/
 class AddCompareComponent extends React.Component{
 	constructor(props){
 		super(props);

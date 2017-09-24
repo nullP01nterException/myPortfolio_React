@@ -3,7 +3,7 @@ footer{
   clear:both;
 }
 
-.aboutContent{
+#aboutContent{
   position:relative;
   top:15vh;
   z-index:5;
@@ -20,7 +20,7 @@ footer{
   padding-right:20px;
 }
 
-.artContent{
+#artContent{
   margin: auto;
   text-align: center;
   font-size:30px;
@@ -29,12 +29,17 @@ footer{
   height:0px;
 }
 
-.programmingContent{
+#programmingContent{
   margin:auto;
   position:absolute;
   z-index:7;
   width:100%;
   top:15vh;
+}
+
+#programmingTab{
+  margin:auto;
+  text-align: center;
 }
 
 /************************art css*************************/
@@ -95,12 +100,7 @@ body{
 }
 
 .tab.activeTab{
-  /*transform: scaleY(-1);*/
   background-image:url("data/images/navbarTabActive.png");
-}
-
-.active{
-  /*transform: scaleY(-1);*/
 }
 
 .routerLink{
@@ -226,6 +226,54 @@ body{
   visibility:hidden;
   font-size: 20px;
   padding:3px;
+}
+
+/********************project thumbnail*******************/
+.projectThumbnail{
+  position:relative;
+  margin:auto;
+  width:50%;
+  border:3px solid #555555;
+  border-radius: 10px;
+  cursor:pointer;
+  margin-bottom:5px;
+  background:white;
+  padding:2px;
+}
+
+.projectThumbnail p{
+  font-size: 3vh;
+}
+
+.projectThumbnail img{
+  max-width:100%;
+  max-height:100%;
+}
+
+.projectThumbnail:hover{
+  border:3px solid #42f4e5;
+}
+
+#backToTabs{
+  position:fixed;
+  z-index:99;
+  background:#42f4e5;
+  font-size:25px;
+  display:inline-block;
+  cursor:pointer;
+  top:10px;
+  left:6px;
+  border:2px solid #42f4e5;
+  border-radius:3px;
+  text-align:center;
+  color:#fff;
+  display:none;
+}
+
+#gameIFrame{
+  border:none;
+  width:100%;
+  height:628px;
 }
 
 /*******************git program css**********************/
@@ -407,6 +455,10 @@ button[disabled], html input[disabled] {
   width:50%;
 }
 
+.userName{
+  font-size: 3vw;
+}
+
 .userText{
   color: black;
   font-family: 'Josefin Sans', sans-serif;
@@ -444,17 +496,17 @@ button[disabled], html input[disabled] {
   top: 2px;
 }
 
-#forkDiv{
+.forkDiv{
   display:inline-block;
   padding:10px;
 }
 
-#starDiv{
+.starDiv{
   display:inline-block;
   padding:10px;
 }
 
-#userImg{
+.userImg{
   height: 60px;
   border-radius: 50%;
   border: 3px solid #42f4e5;
@@ -463,19 +515,7 @@ button[disabled], html input[disabled] {
   top:1vh;
 }
 
-#userName{
-  font-size: 3vw;
-}
-
-#watcherDiv{
+.watcherDiv{
   display:inline-block;
   padding:10px;
-}
-
-#winnerImg{
-  height: 80px;
-  float:left;
-  margin-left:-6%;
-  border-radius: 50%;
-  border: 4px solid #165b28;
 }

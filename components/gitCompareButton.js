@@ -1,4 +1,4 @@
-//compares all the scores
+//Compares scores from GitCompare component
 class GitCompareButton extends React.Component{
 	constructor(props){
 		super(props);
@@ -50,15 +50,6 @@ class GitCompareButton extends React.Component{
 			showFinish: true
 		});
 	}
-
-	//scroll down to results
-	/*componentDidUpdate(){
-		if(document.getElementById("textWinner") !== null){
-			if(document.getElementById("textWinner").offsetParent !== null){
-				$('html,body').animate({scrollTop: $(".textWinner").offset().top},'slow');
-			}
-		}
-	}*/
 
 	render(){
 		return(

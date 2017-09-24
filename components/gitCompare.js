@@ -1,4 +1,11 @@
-//renders both gitSearch and gitDisplay
+/*Has a gitSearch and gitDisplay mode
+  Passes data between search and display components
+  Cookies not implemented
+
+  Children:
+  	-GitSearch
+  	-GitDisplay
+*/
 class GitCompare extends React.Component{
 	constructor(props){
 		super(props);

@@ -1,4 +1,10 @@
-//this component is for art
+/*Art page
+  Changes picture on ArtDisplay by passing src from ArtTuhmbnail
+
+  Children:
+    -ArtThumbnail
+    -ArtDisplay
+*/
 class Art extends React.Component{
 	constructor(props){
 		super(props);
@@ -31,9 +37,10 @@ class Art extends React.Component{
 		}
 	}
 
+	//set the src and which section of the art piece to display in the thumbanil
 	render(){
 		return(
-			<div className="artContent userText">
+			<div className="userText" id="artContent">
 				<h1>Art</h1>
 
 				<div className="thumbnails">

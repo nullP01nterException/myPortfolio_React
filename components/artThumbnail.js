@@ -1,3 +1,7 @@
+/*Thumbnails that display a small section of an art piece by setting parameters in Art component
+Passes src for image to Art component to be displayed in full in ArtDisplay
+*/
+
 class ArtThumbnail extends React.Component{
 	constructor(props){
 		super(props);

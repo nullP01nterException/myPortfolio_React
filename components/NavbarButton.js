@@ -1,3 +1,7 @@
+/*Toggles display of navbar
+  Tooltip that describes button appears on hover
+*/
+
 class NavbarButton extends React.Component{
 	constructor(props){
 		super(props);
@@ -19,6 +23,7 @@ class NavbarButton extends React.Component{
 		});
 	}
 
+	//get position of mouse when hovering over button so tooltip moves with mouse
 	mousePos(e){
 		this.setState({
 			xPos: e.clientX,

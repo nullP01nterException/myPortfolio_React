@@ -1,3 +1,6 @@
+/*This component renders and animates the navigation bar and decoration beam behind the tabs
+*/
+
 class MenuBar extends React.Component{
 	constructor(props){
 		super(props);

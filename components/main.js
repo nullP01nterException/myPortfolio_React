@@ -1,3 +1,12 @@
+/*Entry point of website
+
+Children:
+  -Navbar
+  -About
+  -Art
+  -Programming
+*/
+
 //automatically attaches ReactRouter prefix
 var {Router,
 	Route,

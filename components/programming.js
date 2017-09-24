@@ -3,141 +3,80 @@ class Programming extends React.Component{
 		super(props);
 
 		this.state = {
-			canCompare: false,
-			getShow: false,
-
-			compareInstanceArr: [],
-			scoreArr: [],
-			responseArr: [],
-			tempArr: [],
-
-			objectKey: 0
+			project: "",
+			projectMode: false
 		};
-		//this.enableCompare = this.enableCompare.bind(this);
-		this.deleteCompareInstance = this.deleteCompareInstance.bind(this);
-		this.enableCompare = this.enableCompare.bind(this);
-		this.resetCompareInstanceArray = this.resetCompareInstanceArray.bind(this);
 
-		this.setScoreArray = this.setScoreArray.bind(this);
-		this.resetScoreArray = this.resetScoreArray.bind(this);
-		this.setObjectKey = this.setObjectKey.bind(this);
-
-		this.pushComponent = this.pushComponent.bind(this);
-		this.pushFrontComponent = this.pushFrontComponent.bind(this);
+		this.showProject = this.showProject.bind(this);
 	}
 
-	componentWillMount(){
-		this.pushComponent();
+	componentDidUpdate(){
+		var frame = document.getElementById("gameIFrame");
+		if(frame != null){
+			var frameDoc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+			frameDoc.body.setAttribute("text-align","center");
+		}
 	}
 
-	componentDidMount(){
-		this.pushComponent();
-	}
-
-	pushComponent(){
-		this.state.compareInstanceArr.push(<GitCompare
-											key={this.state.objectKey}
-											number={this.state.objectKey}
-											deleteCompareInstance={this.deleteCompareInstance}
-											setScoreArray={this.setScoreArray}/>);
+	showProject(id){
 		this.setState({
-			objectKey: this.state.objectKey+1
-		}, ()=>{
-			this.enableCompare();
+			project: id
 		});
-	}
 
-	pushFrontComponent(){
-		this.state.compareInstanceArr.unshift(<GitCompare
-												key={this.state.objectKey}
-												number={this.state.objectKey}
-												deleteCompareInstance={this.deleteCompareInstance}
-												setScoreArray={this.setScoreArray}/>);
-		this.setState({
-			objectKey: this.state.objectKey+1
-		});
-	}
-
-	setObjectKey(num){
-		this.setState({
-			objectKey: num
-		});
-	}
-
-	setScoreArray(key, score){
-		var stringedKey = key.toString();
-		this.state.scoreArr.push({key:key, score:score});
-		this.enableCompare();
-	}
-
-	resetScoreArray(score){
-		this.setState({
-			scoreArr: score
-		},()=>{
-			this.forceUpdate();
-		});
-	}
-
-	resetCompareInstanceArray(arr){
-		this.setState({
-			compareInstanceArr: arr
-		},()=>{
-			this.forceUpdate();
-		});
-	}
-
-	//enables compare button when correct input detected
-	enableCompare(){
-		document.getElementById("finishIcon").style.display="none";
-		if(this.state.scoreArr.length >= 2 && this.state.scoreArr.length == this.state.compareInstanceArr.length){
-			for(var i = 0; i < this.state.compareInstanceArr.length; i++){
-				if(Object.keys(this.state.compareInstanceArr[i]).length <= 2){
-					return;
-				}
-			}
+		if(id != ""){
 			this.setState({
-				canCompare: true
+				projectMode: true
 			});
+			document.getElementById("backToTabs").style.display="block";
+			document.getElementById("navbar").style.display="none";
+			document.getElementById("navbarButton").style.display="none";
 		}else{
 			this.setState({
-				canCompare: false
+				projectMode: false
 			});
+			document.getElementById("backToTabs").style.display="none";
+			document.getElementById("navbar").style.display="block";
+			document.getElementById("navbarButton").style.display="block";
 		}
-	}
-
-	//delete a gitCompareInstance
-	deleteCompareInstance(pos){
-		var index = -1;
-		for(var i = 0; i < this.state.compareInstanceArr.length; i++){
-			if(this.state.compareInstanceArr[i].key == pos){
-				index = i;
-			}
-		}
-		if(index == -1){return;}
-
-		this.state.compareInstanceArr.splice(index, 1);
-		this.state.scoreArr.splice(index,1);
-		this.enableCompare();
-		this.forceUpdate();
 	}
 
 	render(){
-		return(
-			<div className="programmingContent">
-				<div className="searchCompareComponent">
-					{/*<AddCompareComponent onClick={this.pushFrontComponent}/>*/}
-					{this.state.compareInstanceArr}
-				</div>
+		var renderProject=null;
 
-				<div className="programmingButtons">
-					<AddCompareComponent onClick={this.pushComponent}/>
-					<GitCompareButton
-						canCompare={this.state.canCompare}
-						resetScoreArray={this.resetScoreArray}
-						resetCompareInstanceArray={this.resetCompareInstanceArray}
-						getScoreArr={this.state.scoreArr}
-						getCompareInstanceArr={this.state.compareInstanceArr} />
-				</div>
+		switch(this.state.project){
+			case "gitScraper":
+				renderProject = <GitScraper />;
+				break;
+			case "symbiosis":
+				renderProject = <iframe id="gameIFrame" src="https://rawgit.com/nullP01nterException/cm120-project/master/code/index.html"></iframe>;
+				break;
+		}
+
+		return(
+			<div id="programmingTab">
+			<button id="backToTabs" onClick={()=>{this.showProject("")}}>Back To Projects</button>
+				{renderProject}
+
+				<ProjectThumbnail 
+					onClick={this.showProject}
+					getProjectMode={this.state.projectMode}
+					projectId="gitScraper"
+					getSrc="../data/images/gitscraper.png"
+					getTitle="Git Scraper (2017)"
+					getDescription="This program searches for the user's requested GitHub repository and displays
+						information about it. It gives each repository a score based on repos, followers, stars, forks, 
+						and watchers. Multiple searches can be sorted by score in descending order." />
+
+				<ProjectThumbnail 
+					onClick={this.showProject}
+					getProjectMode={this.state.projectMode}
+					projectId="symbiosis"
+					getSrc="../data/images/symbiosis.png"
+					getTitle="Symbiosis (2016)"
+					getDescription="This game is about the bleaching of the Great Barrier Reef. 
+						The player takes on the role of zooxanthellae who shares a symbiotic relationship
+						with a dying reef and must take action to prevent its imminent destruction. 
+						Created in a team with Richard Harker, Nicole Maines, and Tommy Milne-Jones." />
 			</div>
 		);
 	}

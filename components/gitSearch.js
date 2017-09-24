@@ -1,3 +1,7 @@
+/*Searches for GitHub Repo
+  Passes data to Programming component to be displayed in GitDisplay
+*/
+
 class GitSearch extends React.Component{
 	constructor(props){
 		super(props);
@@ -20,6 +24,7 @@ class GitSearch extends React.Component{
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
+	//makes AJAX call to user's list of GitHub repos
 	getScore(initScore){
 		var xmlHttp = new XMLHttpRequest();
 
@@ -54,27 +59,20 @@ class GitSearch extends React.Component{
 
             			this.setState({
             				key: this.state.key+1
-            			},()=>{
-            				//this.props.setObjectKey(this.state.key);
             			});
             		});
 				}else{
 					this.setState({
             			score: 0
-            		},()=>{
-            			//this.props.setScore(this.state.score);
             		});
 				}		
         	}else{
         		this.setState({
             			score: 0
-            		},() => {
-            			//this.props.setScore(this.state.score);
             		});
         	}
         }.bind(this);
 
-        //this.props.setScore(this.state.score);
     	xmlHttp.open("GET", this.state.response.repos_url, true);
     	xmlHttp.send(null);
 	}
@@ -93,6 +91,7 @@ class GitSearch extends React.Component{
 		}
 	}
 
+	//initial AJAX call to GitHub api
 	handleUsername(cookieUser){
 		this.setState({
 			showDiv: true

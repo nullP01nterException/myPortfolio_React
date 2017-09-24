@@ -6,7 +6,7 @@ class About extends React.Component{
 
 	render(){
 		return(
-			<div className="aboutContent userText">
+			<div className="userText" id="aboutContent">
 				<h2>About</h2>
 				<p>
 				Hi! I'm Jolina and I am a 4th year Computer Science: Computer Game Design Major at

@@ -1,3 +1,5 @@
+//Displays information from GitSearch
+
 class GitDisplay extends React.Component{
 	constructor(props){
 		super(props);
@@ -8,14 +10,14 @@ class GitDisplay extends React.Component{
 
 		var showName = null;
 		if(Object.keys(response).length != 2){
-			showName = <a id="userName" className="userText" href={response.html_url}>{response.login}</a>;
+			showName = <a className="userText userName" href={response.html_url}>{response.login}</a>;
 		}else{
-			showName=<span id="userName" className="userText" style={{color:'red'}}>{response.message}</span>;
+			showName=<span className="userText userName" style={{color:'red'}}>{response.message}</span>;
 		}
 
 		return(
 			<div className="box">
-				<img id="userImg" src={response.avatar_url} style={{display: this.props.getShow ? 'inline-block' : 'none'}}></img>
+				<img className="userImg" src={response.avatar_url} style={{display: this.props.getShow ? 'inline-block' : 'none'}}></img>
 				
 				<div className="nameDiv userText">
 					{showName}
@@ -25,19 +27,19 @@ class GitDisplay extends React.Component{
 				</div>
 
 				<div className="infoBox" style={{display: this.props.getShow ? 'inline-block' : 'none'}}>
-					<div id="forkDiv">
+					<div className="forkDiv">
 						<div type="text" className="userText numLabels">Forks</div>
-						<div id="repoNum" className="userText nums">{this.props.getForks}</div>
+						<div className="userText nums">{this.props.getForks}</div>
 					</div>
 
-					<div id="starDiv">
+					<div className="starDiv">
 						<div type="text" className="userText numLabels">Stars</div>
-						<div id="followersNum" className="userText nums">{this.props.getStars}</div>
+						<div className="userText nums">{this.props.getStars}</div>
 					</div>
 
-					<div id="watcherDiv">
+					<div className="watcherDiv">
 						<div type="text" className="userText numLabels">Watchers</div>
-						<div id="orgNum" className="userText nums">{this.props.getWatchers}</div>
+						<div className="userText nums">{this.props.getWatchers}</div>
 					</div>
 				</div>
 
